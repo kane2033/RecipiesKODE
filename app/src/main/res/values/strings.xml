@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">RecipiesKODE</string>
+    <string name="app_name">RecipesKODE</string>
+    <string name="recipe_image_description">Recipe picture</string>
+    <string name="recipe_difficulty">Difficulty: %1$d</string>
 </resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/recipesMasterDetailGraph">
+
+    <!--Выделены в отдельный граф, т.к.
+    используется byNavGraphsViewModel; т.е. сделано для того, чтобы
+    не изменять имеющийся код при добавлении новых фрагментов/графов-->
+    <navigation
+        android:id="@+id/recipesMasterDetailGraph"
+        app:startDestination="@id/recipesListFragment">
+        <fragment
+            android:id="@+id/recipesListFragment"
+            android:name="com.kode.recipes.ui.recipe.RecipesListFragment"
+            android:label="RecipesListFragment"
+            tools:layout="@layout/fragment_recipes_list">
+            <action
+                android:id="@+id/action_recipesListFragment_to_recipeDetailsFragment"
+                app:destination="@id/recipeDetailsFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/recipeDetailsFragment"
+            android:name="com.kode.recipes.ui.recipe.RecipeDetailsFragment"
+            android:label="fragment_recipe_details"
+            tools:layout="@layout/fragment_recipe_details" />
+    </navigation>
+
+</navigation>
