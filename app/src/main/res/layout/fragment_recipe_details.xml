@@ -25,7 +25,7 @@
                 style="@style/recipe_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.selectedRecipe.name}"
+                android:text="@{viewModel.recipeDetails.name}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -36,7 +36,7 @@
                 android:layout_width="0dp"
                 android:layout_height="256dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:imageUrl="@{viewModel.selectedRecipe.imageUrl}"
+                app:imageUrl="@{viewModel.recipeDetails.imageUrl}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/nameView"
                 app:shapeAppearanceOverlay="@style/roundedCornersImageView"
@@ -50,7 +50,7 @@
                 app:layout_constraintTop_toBottomOf="@id/imageView"
                 android:layout_marginTop="@dimen/def_margin"
                 app:layout_constraintStart_toStartOf="parent"
-                android:text="@{@string/recipe_difficulty(viewModel.selectedRecipe.difficulty)}"
+                android:text="@{@string/recipe_difficulty(viewModel.recipeDetails.difficulty)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:gravity="center"
                 tools:text="Difficulty: 3" />
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/def_margin"
                 android:gravity="center"
-                android:text="@{viewModel.selectedRecipe.description}"
+                android:text="@{viewModel.recipeDetails.description}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/difficultyView"
@@ -75,13 +75,24 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/def_margin"
-                android:text="@{viewModel.selectedRecipe.instructions}"
+                android:text="@{viewModel.recipeDetails.instructions}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/descriptionView"
                 tools:text="1. Preheat the oven to 230deg C. Coat a large baking dish or cast-iron
                 skillet with 1 tbs of olive oil. Arrange the lemon slices in a single layer
                 in the bottom of the dish or skillet." />
+
+            <include
+                android:id="@+id/progressBarLayout"
+                layout="@layout/layout_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:isLoading="@{viewModel.isLoading}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

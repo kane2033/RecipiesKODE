@@ -18,5 +18,5 @@ class RecipeRepositoryImpl
 
     override suspend fun getRecipeDetails(uuid: String) = safeApiCall.safeApiResult({
         recipeApi.getRecipeDetailsAsync(uuid)
-    }, { it.toRecipe() })
+    }, { it.recipe.toRecipe() })
 }
