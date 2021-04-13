@@ -1,7 +1,7 @@
 package com.kode.recipes.data.recipe.converter
 
 import com.kode.recipes.data.recipe.model.RecipeDto
-import com.kode.recipes.domain.recipe.Recipe
+import com.kode.recipes.domain.recipe.entity.Recipe
 
 fun RecipeDto.toRecipe() = Recipe(
     uuid,

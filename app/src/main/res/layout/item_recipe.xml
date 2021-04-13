@@ -7,11 +7,11 @@
 
         <variable
             name="item"
-            type="com.kode.recipes.domain.recipe.Recipe" />
+            type="com.kode.recipes.domain.recipe.entity.Recipe" />
 
         <variable
             name="clickListener"
-            type="com.kode.recipes.presentation.base.ItemClickListener" />
+            type="com.kode.recipes.presentation.base.ItemClickedInterface" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

@@ -27,6 +27,7 @@
             android:padding="@dimen/def_margin"
             app:adapter="@{adapter}"
             app:items="@{viewModel.recipes}"
+            app:onClick="@{viewModel.onItemClicked}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_recipe" />
 

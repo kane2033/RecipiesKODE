@@ -27,16 +27,23 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter(value = ["adapter"])
     fun RecyclerView.bindRecyclerViewAdapter(adapter: BaseListAdapter<*>) {
-        this.run {
-            this.setHasFixedSize(true) // с осторожностью
-            this.adapter = adapter
-        }
+        setHasFixedSize(true) // с осторожностью
+        this.adapter = adapter
     }
 
     @JvmStatic
     @Suppress("UNCHECKED_CAST")
     @BindingAdapter(value = ["items"])
     fun <T> RecyclerView.setItems(items: List<T>?) {
-        (this.adapter as? BaseListAdapter<T>)?.submitList(items)
+        (this.adapter as BaseListAdapter<T>).submitList(items)
+    }
+
+    @JvmStatic
+    @Suppress("UNCHECKED_CAST")
+    @BindingAdapter(value = ["onClick"])
+    fun <T> RecyclerView.setOnClickListener(onClick: ItemClickedInterface<T>?) {
+        onClick?.let {
+            (adapter as BaseListAdapter<T>).itemClickedInterface = it
+        }
     }
 }

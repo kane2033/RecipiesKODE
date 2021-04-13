@@ -29,4 +29,14 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
     protected fun navigateTo(@IdRes action: Int) {
         findNavController().navigate(action)
     }
+
+    // Наблюдение за полем назначения навигации:
+    // переходим на новый фрагмент только при первом изменении (event)
+    protected fun observeNavigation() {
+        viewModel.newDestination.observe(viewLifecycleOwner, {
+            it.getContentIfNotHandled()?.let { destinationId ->
+                navigateTo(destinationId)
+            }
+        })
+    }
 }

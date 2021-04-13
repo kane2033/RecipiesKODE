@@ -1,4 +1,4 @@
-package com.kode.recipes.domain.recipe
+package com.kode.recipes.domain.recipe.entity
 
 data class Recipe(
     val uuid: String,

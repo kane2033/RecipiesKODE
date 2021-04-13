@@ -10,11 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kode.recipes.BR
 
 /**
- * Базовая имплементация [ListAdapter].
+ * Базовая имплементация [ListAdapter]
  * */
 abstract class BaseListAdapter<T>(
-    val clickListener: ItemClickListener<T>,
-    diffCallback: DiffUtil.ItemCallback<T>
+    diffCallback: DiffUtil.ItemCallback<T>,
+    var itemClickedInterface: ItemClickedInterface<T> = ItemClickedInterface { }
 ) :
     ListAdapter<T, BaseListAdapter<T>.BaseViewHolder<T>>(diffCallback) {
 
@@ -33,7 +33,7 @@ abstract class BaseListAdapter<T>(
 
         fun bind(item: T) {
             binding.setVariable(BR.item, item)
-            binding.setVariable(BR.clickListener, clickListener)
+            binding.setVariable(BR.clickListener, itemClickedInterface)
             binding.executePendingBindings()
         }
     }
