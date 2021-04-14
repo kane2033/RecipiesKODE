@@ -13,5 +13,6 @@ data class Recipe(
     val difficulty: Int,
     val similar: List<RecipeBrief>?
 ) {
-    val lastUpdatedSimple = SimpleDateFormat("dd.mm.yyyy", Locale.getDefault()).format(lastUpdated)
+    val lastUpdatedSimple: String =
+        SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(lastUpdated)
 }

@@ -10,7 +10,7 @@ fun RecipeDto.toRecipe() = Recipe(
     uuid,
     name,
     images[0],
-    Date(lastUpdated.toLong()),
+    Date(lastUpdated.toLong() * 1000),
     description,
     instructions,
     difficulty,
