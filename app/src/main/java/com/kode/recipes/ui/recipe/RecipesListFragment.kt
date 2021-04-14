@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.SearchView
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.kode.recipes.R
@@ -35,17 +36,24 @@ class RecipesListFragment : BaseFragment(R.layout.fragment_recipes_list) {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.toolbar_list, menu)
+
+        val searchView = menu.findItem(R.id.searchButton).actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            // Фильтрация при каждом вводе символа
+            override fun onQueryTextChange(newText: String?): Boolean {
+                binding.adapter?.filter?.filter(newText)
+                return false
+            }
+
+            override fun onQueryTextSubmit(query: String?) = false
+        })
+
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.searchButton -> {
-                // do search
-            }
-            R.id.sortByButton -> {
-                navigateTo(R.id.action_recipesListFragment_to_sortByBottomSheetFragment)
-            }
+        if (item.itemId == R.id.sortByButton) {
+            navigateTo(R.id.action_recipesListFragment_to_sortByBottomSheetFragment)
         }
         return super.onOptionsItemSelected(item)
     }
