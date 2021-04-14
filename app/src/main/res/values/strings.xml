@@ -2,4 +2,9 @@
     <string name="app_name">RecipesKODE</string>
     <string name="recipe_image_description">Recipe picture</string>
     <string name="recipe_difficulty">Difficulty: %1$d</string>
+    <string name="search">Search</string>
+    <string name="sort">Sort</string>
+    <string name="sort_by_name">Sort by Name</string>
+    <string name="sort_by_date">Sort by Date</string>
+    <string name="recipes_list_title">Recipes</string>
 </resources>

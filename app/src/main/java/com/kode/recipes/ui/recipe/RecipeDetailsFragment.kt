@@ -1,6 +1,8 @@
 package com.kode.recipes.ui.recipe
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -22,5 +24,12 @@ class RecipeDetailsFragment : BaseFragment(R.layout.fragment_recipe_details) {
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.toolbar_details, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 }

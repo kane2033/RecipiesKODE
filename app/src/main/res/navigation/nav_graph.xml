@@ -14,7 +14,7 @@
         <fragment
             android:id="@+id/recipesListFragment"
             android:name="com.kode.recipes.ui.recipe.RecipesListFragment"
-            android:label="RecipesListFragment"
+            android:label="@string/recipes_list_title"
             tools:layout="@layout/fragment_recipes_list">
             <action
                 android:id="@+id/action_recipesListFragment_to_recipeDetailsFragment"
@@ -23,7 +23,7 @@
         <fragment
             android:id="@+id/recipeDetailsFragment"
             android:name="com.kode.recipes.ui.recipe.RecipeDetailsFragment"
-            android:label="fragment_recipe_details"
+            android:label=""
             tools:layout="@layout/fragment_recipe_details" />
     </navigation>
 

@@ -1,6 +1,9 @@
 package com.kode.recipes.ui.recipe
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -26,5 +29,24 @@ class RecipesListFragment : BaseFragment(R.layout.fragment_recipes_list) {
         binding.adapter = RecipesAdapter()
 
         observeNavigation()
+
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.toolbar_list, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.searchButton -> {
+                // do search
+            }
+            R.id.sortByButton -> {
+                // open dialog
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
