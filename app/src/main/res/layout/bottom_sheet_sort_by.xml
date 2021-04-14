@@ -1,16 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:tools="http://schemas.android.com/tools">
 
-    <!--    <ImageView
-            android:id="@+id/"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.recipe.SortByBottomSheetFragment">
 
-        <TextView
-            android:id="@+id/sortByNameTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>-->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/sortByNameButton"
+            style="@style/bottom_sheet_item"
+            android:text="@string/sort_by_name"
+            android:drawableStart="@drawable/ic_service"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/sortByDateButton"
+            style="@style/bottom_sheet_item"
+            android:text="@string/sort_by_date"
+            android:drawableStart="@drawable/ic_today_calendar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/sortByNameButton"
+            app:layout_constraintStart_toStartOf="@id/sortByNameButton"
+            app:layout_constraintTop_toBottomOf="@id/sortByNameButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

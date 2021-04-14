@@ -44,7 +44,7 @@ class RecipesListFragment : BaseFragment(R.layout.fragment_recipes_list) {
                 // do search
             }
             R.id.sortByButton -> {
-                // open dialog
+                navigateTo(R.id.action_recipesListFragment_to_sortByBottomSheetFragment)
             }
         }
         return super.onOptionsItemSelected(item)

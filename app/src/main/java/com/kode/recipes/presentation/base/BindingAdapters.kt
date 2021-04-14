@@ -27,7 +27,7 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter(value = ["adapter"])
     fun RecyclerView.bindRecyclerViewAdapter(adapter: BaseListAdapter<*>) {
-        setHasFixedSize(true) // с осторожностью
+        //setHasFixedSize(true) // с осторожностью
         this.adapter = adapter
     }
 
