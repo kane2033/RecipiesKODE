@@ -4,11 +4,13 @@ import com.kode.recipes.data.recipe.model.RecipeBriefDto
 import com.kode.recipes.data.recipe.model.RecipeDto
 import com.kode.recipes.domain.recipe.entity.Recipe
 import com.kode.recipes.domain.recipe.entity.RecipeBrief
+import java.util.*
 
 fun RecipeDto.toRecipe() = Recipe(
     uuid,
     name,
     images[0],
+    Date(lastUpdated.toLong()),
     description,
     instructions,
     difficulty,
