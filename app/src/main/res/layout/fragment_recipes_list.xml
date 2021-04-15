@@ -24,7 +24,6 @@
             android:name=".features.loan.ui.LoansListFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/def_margin"
             app:adapter="@{adapter}"
             app:items="@{viewModel.recipes}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

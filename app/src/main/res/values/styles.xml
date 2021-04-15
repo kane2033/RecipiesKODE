@@ -22,8 +22,16 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="difficulty_rating_bar" parent="Widget.AppCompat.RatingBar.Indicator">
+        <item name="android:progressDrawable">@drawable/ic_difficulty_selector</item>
+        <item name="android:indeterminateDrawable">@drawable/ic_difficulty_selector</item>
+        <item name="android:minHeight">30dp</item>
+        <item name="android:maxHeight">30dp</item>
+    </style>
+
     <style name="roundedCornersImageView" parent="">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">16dp</item>
+        <item name="cornerSizeBottomLeft">8dp</item>
+        <item name="cornerSizeTopLeft">8dp</item>
     </style>
 </resources>
