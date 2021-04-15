@@ -6,7 +6,7 @@ import java.util.*
 data class Recipe(
     val uuid: String,
     val name: String,
-    val imageUrl: String,
+    val imagesUrls: List<String>,
     val lastUpdated: Date,
     val description: String?,
     val instructions: String?,

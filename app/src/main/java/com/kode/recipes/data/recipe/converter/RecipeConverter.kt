@@ -9,7 +9,7 @@ import java.util.*
 fun RecipeDto.toRecipe() = Recipe(
     uuid,
     name,
-    images[0],
+    images,
     Date(lastUpdated.toLong() * 1000),
     description,
     instructions,

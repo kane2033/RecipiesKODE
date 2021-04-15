@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">RecipesKODE</string>
     <string name="recipe_image_description">Recipe picture</string>
+    <string name="recipe_images_amount">%1$d/%2$d</string>
     <string name="recipe_difficulty">Difficulty: %1$d</string>
     <string name="difficulty">Difficulty:</string>
     <string name="instruction_title">Instruction:</string>

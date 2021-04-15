@@ -4,6 +4,7 @@ import android.widget.ImageView
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.squareup.picasso.Picasso
 
 object BindingAdapters {
@@ -45,5 +46,12 @@ object BindingAdapters {
         onClick?.let {
             (adapter as BaseListAdapter<T>).itemClickedInterface = it
         }
+    }
+
+    @JvmStatic
+    @Suppress("UNCHECKED_CAST")
+    @BindingAdapter(value = ["items"])
+    fun <T> ViewPager2.setItems(items: List<T>?) {
+        (this.adapter as BaseListAdapter<T>).submitList(items)
     }
 }

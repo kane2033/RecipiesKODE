@@ -67,7 +67,7 @@
             android:scaleType="centerCrop"
             android:contentDescription="@string/recipe_image_description"
             android:maxHeight="128dp"
-            app:imageUrl="@{item.imageUrl}"
+            app:imageUrl="@{item.imagesUrls.get(0)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
