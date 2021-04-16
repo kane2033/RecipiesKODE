@@ -2,12 +2,13 @@ package com.kode.recipes.ui.recipe
 
 import android.os.Bundle
 import android.view.*
-import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kode.recipes.R
 import com.kode.recipes.databinding.FragmentRecipeDetailsBinding
-import com.kode.recipes.presentation.recipe.RecipesViewModel
+import com.kode.recipes.presentation.recipe.RecipeDetailsViewModel
+import com.kode.recipes.presentation.recipe.RecommendedRecipesAdapter
 import com.kode.recipes.presentation.recipe.SwipeImageAdapter
 import com.kode.recipes.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class RecipeDetailsFragment : BaseFragment(R.layout.fragment_recipe_details) {
 
-    override val viewModel: RecipesViewModel by hiltNavGraphViewModels(R.id.recipesMasterDetailGraph)
+    override val viewModel: RecipeDetailsViewModel by viewModels()
 
     private val binding: FragmentRecipeDetailsBinding by viewBinding(FragmentRecipeDetailsBinding::bind)
 
@@ -29,7 +30,17 @@ class RecipeDetailsFragment : BaseFragment(R.layout.fragment_recipe_details) {
 
             imageViewPager.adapter = SwipeImageAdapter()
             TabLayoutMediator(imageCountTabLayout, imageViewPager) { _, _ -> }.attach()
+
+            recommendedRecyclerView.adapter = RecommendedRecipesAdapter()
         }
+
+        // При выборе нового рецепта из "Recommended", открывается такой же новый фрагмент
+        // с передачей uuid
+        viewModel.selectedRecipeUuid.observe(viewLifecycleOwner, { event ->
+            event.getContentIfNotHandled()?.let { uuid ->
+                navigateTo(RecipeDetailsFragmentDirections.actionRecipeDetailsFragmentSelf(uuid))
+            }
+        })
 
         setHasOptionsMenu(true)
     }

@@ -5,6 +5,7 @@ import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.kode.recipes.presentation.base.BaseViewModel
 
@@ -28,6 +29,10 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
 
     protected fun navigateTo(@IdRes action: Int) {
         findNavController().navigate(action)
+    }
+
+    protected fun navigateTo(navDirections: NavDirections) {
+        findNavController().navigate(navDirections)
     }
 
     // Наблюдение за полем назначения навигации:

@@ -17,12 +17,4 @@ fun RecipeDto.toRecipe() = Recipe(
     similar?.map { it.toRecipeBrief() }
 )
 
-fun RecipeBriefDto.toRecipeBrief() = RecipeBrief(uuid, name)
-
-/*
-// Перевод даты в строку по Красноярскому часовому поясу
-private fun Date.toStringDate(): String {
-    val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale("ru"))
-    simpleDateFormat.timeZone = TimeZone.getTimeZone("Asia/Krasnoyarsk")
-    return simpleDateFormat.format(this)
-}*/
+fun RecipeBriefDto.toRecipeBrief() = RecipeBrief(uuid, name, image)

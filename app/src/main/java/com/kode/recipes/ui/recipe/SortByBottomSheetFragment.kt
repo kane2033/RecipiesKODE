@@ -10,7 +10,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kode.recipes.R
 import com.kode.recipes.databinding.BottomSheetSortByBinding
 import com.kode.recipes.domain.recipe.entity.SortBy
-import com.kode.recipes.presentation.recipe.RecipesViewModel
+import com.kode.recipes.presentation.recipe.RecipesListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SortByBottomSheetFragment : BottomSheetDialogFragment() {
 
-    private val viewModel: RecipesViewModel by hiltNavGraphViewModels(R.id.recipesMasterDetailGraph)
+    private val viewModel: RecipesListViewModel by hiltNavGraphViewModels(R.id.recipesMasterDetailGraph)
 
     private val binding: BottomSheetSortByBinding by viewBinding(BottomSheetSortByBinding::bind)
 

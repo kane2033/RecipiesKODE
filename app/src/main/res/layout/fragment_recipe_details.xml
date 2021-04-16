@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.kode.recipes.presentation.recipe.RecipesViewModel" />
+            type="com.kode.recipes.presentation.recipe.RecipeDetailsViewModel" />
     </data>
 
     <ScrollView
@@ -118,7 +118,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/def_margin"
                 android:text="@{viewModel.recipeDetails.instructions}"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/instructionsTitleView"
@@ -126,10 +125,36 @@
                 skillet with 1 tbs of olive oil. Arrange the lemon slices in a single layer
                 in the bottom of the dish or skillet." />
 
+            <TextView
+                android:id="@+id/recommendedTitleView"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/def_margin"
+                android:text="@string/recommended_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/instructionsView" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recommendedRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="24dp"
+                android:layout_marginStart="@dimen/def_margin"
+                app:items="@{viewModel.recipeDetails.similar}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recommendedTitleView"
+                app:onClick="@{viewModel.onRecommendedItemClicked}"
+                tools:listitem="@layout/item_recommended_recipe" />
+
             <include
                 android:id="@+id/progressBarLayout"
                 layout="@layout/layout_progress_bar"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:isLoading="@{viewModel.isLoading}"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -23,16 +23,23 @@
                 android:id="@+id/action_recipesListFragment_to_sortByBottomSheetFragment"
                 app:destination="@id/sortByBottomSheetFragment" />
         </fragment>
-        <fragment
-            android:id="@+id/recipeDetailsFragment"
-            android:name="com.kode.recipes.ui.recipe.RecipeDetailsFragment"
-            android:label=""
-            tools:layout="@layout/fragment_recipe_details" />
         <dialog
             android:id="@+id/sortByBottomSheetFragment"
             android:name="com.kode.recipes.ui.recipe.SortByBottomSheetFragment"
             android:label="SortByBottomSheetFragment"
             tools:layout="@layout/bottom_sheet_sort_by" />
+        <fragment
+            android:id="@+id/recipeDetailsFragment"
+            android:name="com.kode.recipes.ui.recipe.RecipeDetailsFragment"
+            android:label=""
+            tools:layout="@layout/fragment_recipe_details">
+            <argument
+                android:name="uuid"
+                app:argType="string" />
+            <action
+                android:id="@+id/action_recipeDetailsFragment_self"
+                app:destination="@id/recipeDetailsFragment" />
+        </fragment>
     </navigation>
 
 </navigation>

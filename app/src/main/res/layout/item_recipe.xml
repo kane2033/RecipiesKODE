@@ -71,7 +71,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/roundedCornersImageView"
+            app:shapeAppearanceOverlay="@style/leftRoundedCornersImageView"
             tools:src="@color/purple_200" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

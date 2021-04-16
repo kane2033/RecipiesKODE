@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="com.kode.recipes.presentation.recipe.RecipesViewModel" />
+            type="com.kode.recipes.presentation.recipe.RecipesListViewModel" />
 
         <variable
             name="adapter"

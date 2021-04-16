@@ -5,6 +5,7 @@
     <string name="recipe_difficulty">Difficulty: %1$d</string>
     <string name="difficulty">Difficulty:</string>
     <string name="instruction_title">Instruction:</string>
+    <string name="recommended_title">Recommended:</string>
     <string name="search">Search</string>
     <string name="sort">Sort</string>
     <string name="sort_by_name">Sort by Name</string>
