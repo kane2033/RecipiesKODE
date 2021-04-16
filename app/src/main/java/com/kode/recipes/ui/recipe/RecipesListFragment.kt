@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.navigation.NavDirections
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.kode.recipes.R
 import com.kode.recipes.databinding.FragmentRecipesListBinding
@@ -53,7 +54,7 @@ class RecipesListFragment : BaseFragment(R.layout.fragment_recipes_list) {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             // Фильтрация при каждом вводе символа
             override fun onQueryTextChange(newText: String?): Boolean {
-                binding.adapter?.filter?.filter(newText)
+                newText?.let { viewModel.searchRecipes(newText) }
                 return false
             }
 
@@ -64,9 +65,16 @@ class RecipesListFragment : BaseFragment(R.layout.fragment_recipes_list) {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.sortByButton) {
-            navigateTo(RecipesListFragmentDirections.actionRecipesListFragmentToSortByBottomSheetFragment())
+        val navDirections: NavDirections? = when (item.itemId) {
+            R.id.searchByButton -> {
+                RecipesListFragmentDirections.actionRecipesListFragmentToSearchByBottomSheetDialog()
+            }
+            R.id.sortByButton -> {
+                RecipesListFragmentDirections.actionRecipesListFragmentToSortByBottomSheetFragment()
+            }
+            else -> null
         }
+        navDirections?.let { navigateTo(it) }
         return super.onOptionsItemSelected(item)
     }
 }

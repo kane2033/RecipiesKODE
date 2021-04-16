@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.recipe.SortByBottomSheetFragment">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/searchByNameButton"
+            style="@style/bottom_sheet_item"
+            android:text="@string/search_by_name"
+            android:drawableStart="@drawable/ic_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/searchByDescription"
+            style="@style/bottom_sheet_item"
+            android:drawableStart="@drawable/ic_description"
+            android:text="@string/search_by_description"
+            app:layout_constraintEnd_toEndOf="@id/searchByNameButton"
+            app:layout_constraintStart_toStartOf="@id/searchByNameButton"
+            app:layout_constraintTop_toBottomOf="@id/searchByNameButton" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/searchByInstructionsButton"
+            style="@style/bottom_sheet_item"
+            android:text="@string/search_by_instructions"
+            android:drawableStart="@drawable/ic_instructions"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/searchByDescription"
+            app:layout_constraintStart_toStartOf="@id/searchByDescription"
+            app:layout_constraintTop_toBottomOf="@id/searchByDescription" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

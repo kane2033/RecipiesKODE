@@ -8,7 +8,7 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/favoriteButton"
-        android:title="@string/sort"
+        android:title="@string/sort_by"
         android:icon="@drawable/ic_favorite"
         app:showAsAction="ifRoom" />
 </menu>

@@ -7,7 +7,11 @@
     <string name="instruction_title">Instruction:</string>
     <string name="recommended_title">Recommended:</string>
     <string name="search">Search</string>
-    <string name="sort">Sort</string>
+    <string name="search_by">Search by</string>
+    <string name="search_by_name">Search by Name</string>
+    <string name="search_by_description">Search by Description</string>
+    <string name="search_by_instructions">Search by Instructions</string>
+    <string name="sort_by">Sort by</string>
     <string name="sort_by_name">Sort by Name</string>
     <string name="sort_by_date">Sort by Date</string>
     <string name="recipes_list_title">Recipes</string>

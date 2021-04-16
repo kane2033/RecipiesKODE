@@ -22,12 +22,20 @@
             <action
                 android:id="@+id/action_recipesListFragment_to_sortByBottomSheetFragment"
                 app:destination="@id/sortByBottomSheetFragment" />
+            <action
+                android:id="@+id/action_recipesListFragment_to_searchByBottomSheetDialog"
+                app:destination="@id/searchByBottomSheetDialog" />
         </fragment>
         <dialog
             android:id="@+id/sortByBottomSheetFragment"
             android:name="com.kode.recipes.ui.recipe.SortByBottomSheetFragment"
             android:label="SortByBottomSheetFragment"
             tools:layout="@layout/bottom_sheet_sort_by" />
+        <dialog
+            android:id="@+id/searchByBottomSheetDialog"
+            android:name="com.kode.recipes.ui.recipe.SearchByBottomSheetDialog"
+            android:label="SearchByBottomSheetDialog"
+            tools:layout="@layout/bottom_sheet_search_by" />
         <fragment
             android:id="@+id/recipeDetailsFragment"
             android:name="com.kode.recipes.ui.recipe.RecipeDetailsFragment"
