@@ -25,7 +25,8 @@
 
         <TextView
             android:id="@+id/nameView"
-            style="@style/recipe_name"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:maxLines="3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@{item.name}"
@@ -50,7 +51,7 @@
 
         <TextView
             android:id="@+id/lastUpdatedView"
-            style="@style/TextAppearance.MaterialComponents.Body1"
+            style="@style/TextAppearance.MaterialComponents.Body2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/item_text_margin"
