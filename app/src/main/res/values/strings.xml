@@ -16,4 +16,5 @@
     <string name="sort_by_date">Sort by Date</string>
     <string name="recipes_list_title">Recipes</string>
     <string name="download">Download</string>
+    <string name="downloaded">Image is downloaded to your gallery</string>
 </resources>
