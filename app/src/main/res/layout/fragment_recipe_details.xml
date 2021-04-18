@@ -22,6 +22,7 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/imageViewPager"
                 android:layout_width="0dp"
+                android:transitionName="viewPager"
                 android:layout_height="256dp"
                 app:items="@{viewModel.recipeDetails.imagesUrls}"
                 app:layout_constraintEnd_toEndOf="parent"

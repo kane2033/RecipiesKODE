@@ -2,7 +2,10 @@ package com.kode.recipes.ui.recipe
 
 import android.os.Bundle
 import android.view.*
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kode.recipes.R
@@ -28,10 +31,25 @@ class RecipeDetailsFragment : BaseFragment(R.layout.fragment_recipe_details) {
             viewModel = this@RecipeDetailsFragment.viewModel
             lifecycleOwner = viewLifecycleOwner
 
-            imageViewPager.adapter = SwipeImageAdapter()
-            TabLayoutMediator(imageCountTabLayout, imageViewPager) { _, _ -> }.attach()
-
             recommendedRecyclerView.adapter = RecommendedRecipesAdapter()
+
+            // При клике на картинку, она открывает в новом фрагменте на полном экране
+            imageViewPager.adapter = SwipeImageAdapter(imageClickedInterface = {
+                // Переносим в полноэкранный фрагмент ссылки на картинки и индекс выбранной картинки
+                val urls =
+                    this@RecipeDetailsFragment.viewModel.recipeDetails.value?.imagesUrls?.toTypedArray()
+                val bundle = bundleOf(
+                    "urls" to urls,
+                    "index" to imageCountTabLayout.selectedTabPosition
+                )
+                findNavController().navigate(
+                    R.id.action_recipeDetailsFragment_to_recipeImagesFullScreenFragment,
+                    bundle,
+                    null,
+                    FragmentNavigatorExtras(imageViewPager to "viewPager") // Не работает с viewpager :(
+                )
+            })
+            TabLayoutMediator(imageCountTabLayout, imageViewPager) { _, _ -> }.attach()
         }
 
         // При выборе нового рецепта из "Recommended", открывается такой же новый фрагмент

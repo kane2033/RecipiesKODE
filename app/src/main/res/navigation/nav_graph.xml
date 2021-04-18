@@ -47,7 +47,24 @@
             <action
                 android:id="@+id/action_recipeDetailsFragment_self"
                 app:destination="@id/recipeDetailsFragment" />
+            <action
+                android:id="@+id/action_recipeDetailsFragment_to_recipeImagesFullScreenFragment"
+                app:destination="@id/recipeImagesFullScreenFragment" />
         </fragment>
+        <fragment
+            android:id="@+id/recipeImagesFullScreenFragment"
+            android:name="com.kode.recipes.ui.recipe.RecipeImagesFullScreenFragment"
+            android:label=""
+            tools:layout="@layout/fragment_recipe_images_fullscreen">
+            <argument
+                android:name="urls"
+                app:argType="string[]" />
+            <argument
+                android:name="index"
+                app:argType="integer"
+                android:defaultValue="0" />
+        </fragment>
+
     </navigation>
 
 </navigation>
