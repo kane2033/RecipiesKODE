@@ -6,12 +6,16 @@ import com.kode.recipes.domain.base.interactor.UseCase
 import com.kode.recipes.domain.recipe.entity.Recipe
 import com.kode.recipes.domain.recipe.entity.SearchBy
 import com.kode.recipes.domain.recipe.entity.SearchQuery
+import com.kode.recipes.domain.recipe.exception.RecipesMissingFailure
 import java.util.*
 import javax.inject.Inject
 
 class SearchRecipes @Inject constructor() : UseCase<List<Recipe>, SearchQuery>() {
     override suspend fun run(params: SearchQuery): Either<Failure, List<Recipe>> {
         val (constraint, searchBy, unfilteredRecipes) = params
+        // Возвращаем ошибку, если список неотсортированных рецептов пуст
+        if (unfilteredRecipes.isEmpty()) return Either.Left(RecipesMissingFailure)
+
         return if (constraint.isBlank()) {
             // Не осуществляем поиск, если запрос пуст
             Either.Right(unfilteredRecipes)
