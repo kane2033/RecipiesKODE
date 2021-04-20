@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.google.android.material.tabs.TabLayoutMediator
 import com.kode.recipes.R
 import com.kode.recipes.databinding.FragmentRecipeDetailsBinding
 import com.kode.recipes.presentation.base.ItemClickedInterface
@@ -36,6 +37,7 @@ class RecipeDetailsFragment : BaseFragment(R.layout.fragment_recipe_details) {
 
             // При клике на картинку, она открывает в новом фрагменте на полном экране
             imageViewPager.adapter = SwipeImageAdapter(imageClickedInterface)
+            TabLayoutMediator(imageCountTabLayout, imageViewPager) { _, _ -> }.attach()
         }
 
         // При выборе нового рецепта из "Recommended", открывается такой же новый фрагмент
