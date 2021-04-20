@@ -44,8 +44,8 @@ class RecipeDetailsViewModel
     }
 
     init {
-        // При старт
-        savedStateHandle.get<String>("uuid")?.let { getRecipeDetails(it) }
+        // При старте экрана деталей, загружаем детали рецепта по переданному из списка uuid
+        savedStateHandle.get<String>(RecipeDetailsConstants.UUID_KEY)?.let { getRecipeDetails(it) }
     }
 
 }

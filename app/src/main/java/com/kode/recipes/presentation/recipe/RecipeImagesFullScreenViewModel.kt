@@ -11,7 +11,8 @@ class RecipeImagesFullScreenViewModel @Inject constructor(savedStateHandle: Save
     BaseViewModel() {
 
     val imagesUrls = liveData<List<String>> {
-        val urls = savedStateHandle.get<Array<String>>("urls")?.toList()
+        val urls =
+            savedStateHandle.get<Array<String>>(RecipeDetailsConstants.URLS_KEY)?.toList()
         emit(urls ?: emptyList())
     }
 }

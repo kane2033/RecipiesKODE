@@ -10,13 +10,13 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.get
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kode.recipes.R
 import com.kode.recipes.databinding.FragmentRecipeImagesFullscreenBinding
 import com.kode.recipes.infrastructure.base.ImageSaver
+import com.kode.recipes.presentation.recipe.RecipeDetailsConstants
 import com.kode.recipes.presentation.recipe.RecipeImagesFullScreenViewModel
 import com.kode.recipes.presentation.recipe.SwipeImageAdapter
 import com.kode.recipes.ui.base.BaseFragment
@@ -30,8 +30,6 @@ class RecipeImagesFullScreenFragment : BaseFragment(R.layout.fragment_recipe_ima
         FragmentRecipeImagesFullscreenBinding::bind
     )
 
-    private val args: RecipeImagesFullScreenFragmentArgs by navArgs()
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -42,13 +40,13 @@ class RecipeImagesFullScreenFragment : BaseFragment(R.layout.fragment_recipe_ima
             viewModel = this@RecipeImagesFullScreenFragment.viewModel
             lifecycleOwner = viewLifecycleOwner
 
-            imageViewPager.adapter = SwipeImageAdapter { }
+            imageViewPager.adapter = SwipeImageAdapter()
             TabLayoutMediator(imageCountTabLayout, imageViewPager) { _, _ -> }.attach()
         }
 
         viewModel.imagesUrls.observe(viewLifecycleOwner, {
             // Установка той же картинки, что была выбрана в прошлом фрагменте
-            val selectedImageIndex = args.index
+            val selectedImageIndex = arguments?.getInt(RecipeDetailsConstants.INDEX_KEY) ?: 0
             binding.imageViewPager.setCurrentItem(selectedImageIndex, false)
         })
         setHasOptionsMenu(true)
