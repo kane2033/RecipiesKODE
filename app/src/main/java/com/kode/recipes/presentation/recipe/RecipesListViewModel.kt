@@ -7,20 +7,25 @@ import com.kode.recipes.domain.base.functional.Event
 import com.kode.recipes.domain.base.interactor.None
 import com.kode.recipes.domain.recipe.entity.Recipe
 import com.kode.recipes.domain.recipe.entity.SearchBy
+import com.kode.recipes.domain.recipe.entity.SearchQuery
 import com.kode.recipes.domain.recipe.entity.SortBy
 import com.kode.recipes.domain.recipe.interactor.GetRecipes
+import com.kode.recipes.domain.recipe.interactor.SearchRecipes
 import com.kode.recipes.presentation.base.BaseViewModel
 import com.kode.recipes.presentation.base.ItemClickedInterface
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class RecipesListViewModel
-@Inject constructor(private val getRecipes: GetRecipes) : BaseViewModel() {
+@Inject constructor(
+    private val getRecipes: GetRecipes,
+    private val searchRecipes: SearchRecipes,
+    //private val sortRecipes: SortRecipes
+) : BaseViewModel() {
 
     // Список рецептов (отображаемый, может фильтроваться)
     private val _recipes = MutableLiveData<List<Recipe>>()
@@ -65,57 +70,19 @@ class RecipesListViewModel
         unfilteredRecipes = recipes
     }
 
+    // Поиск рецептов по запросу constraint
     fun searchRecipes(constraint: String) {
-        viewModelScope.launch {
-            val filteredList = mutableListOf<Recipe>()
-            val defaultLocale = Locale.getDefault()
-            withContext(Dispatchers.IO + job) {
-                if (constraint.isBlank()) {
-                    // Не осуществляем поиск, если запрос пуст
-                    filteredList.addAll(unfilteredRecipes)
-                } else {
-                    // Запрос
-                    val filterPattern = constraint.toLowerCase(defaultLocale).trim()
-                    // Поле, по которому будем искать
-                    searchByField(filterPattern, filteredList, defaultLocale)
-                }
-            }
-            _recipes.value = filteredList
-        }
+        _isLoading.value = true
+        searchRecipes(
+            params = SearchQuery(constraint, searchBy, unfilteredRecipes),
+            job = job,
+            onResult = { it.fold(::handleFailure, ::handleRecipesFiltered) }
+        )
     }
 
-    private fun searchByField(
-        filterPattern: String,
-        filteredList: MutableList<Recipe>,
-        defaultLocale: Locale
-    ) {
-        when (searchBy) {
-            SearchBy.NAME -> {
-                unfilteredRecipes.forEach {
-                    if (it.name.toLowerCase(defaultLocale).contains(filterPattern)) {
-                        filteredList.add(it)
-                    }
-                }
-            }
-            SearchBy.DESCRIPTION -> {
-                unfilteredRecipes.forEach {
-                    if (it.description?.toLowerCase(defaultLocale)
-                            ?.contains(filterPattern) == true
-                    ) {
-                        filteredList.add(it)
-                    }
-                }
-            }
-            SearchBy.INSTRUCTIONS -> {
-                unfilteredRecipes.forEach {
-                    if (it.instructions?.toLowerCase(defaultLocale)
-                            ?.contains(filterPattern) == true
-                    ) {
-                        filteredList.add(it)
-                    }
-                }
-            }
-        }
+    private fun handleRecipesFiltered(filteredRecipes: List<Recipe>) {
+        _isLoading.value = false
+        _recipes.value = filteredRecipes
     }
 
     fun sortRecipes(sortBy: SortBy) {
