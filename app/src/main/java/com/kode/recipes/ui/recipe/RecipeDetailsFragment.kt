@@ -67,4 +67,16 @@ class RecipeDetailsFragment : BaseFragment(R.layout.fragment_recipe_details) {
         inflater.inflate(R.menu.toolbar_details, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.shareButton -> {
+                makeToast(R.string.in_development)
+            }
+            R.id.favoriteButton -> {
+                makeToast(R.string.in_development)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }

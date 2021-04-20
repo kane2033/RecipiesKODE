@@ -17,4 +17,5 @@
     <string name="recipes_list_title">Recipes</string>
     <string name="download">Download</string>
     <string name="downloaded">Image is downloaded to your gallery</string>
+    <string name="in_development">Feature is in development</string>
 </resources>
