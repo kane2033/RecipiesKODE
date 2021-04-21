@@ -1,27 +1,24 @@
 package com.kode.recipes.ui.recipe
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageView
-import androidx.core.graphics.drawable.toBitmap
-import androidx.core.view.get
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kode.recipes.R
 import com.kode.recipes.databinding.FragmentRecipeImagesFullscreenBinding
-import com.kode.recipes.infrastructure.base.ImageSaver
 import com.kode.recipes.presentation.recipe.RecipeDetailsConstants
 import com.kode.recipes.presentation.recipe.RecipeImagesFullScreenViewModel
 import com.kode.recipes.presentation.recipe.SwipeImageAdapter
 import com.kode.recipes.ui.base.BaseFragment
-import kotlinx.coroutines.launch
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RecipeImagesFullScreenFragment : BaseFragment(R.layout.fragment_recipe_images_fullscreen) {
 
     override val viewModel: RecipeImagesFullScreenViewModel by viewModels()
@@ -49,7 +46,29 @@ class RecipeImagesFullScreenFragment : BaseFragment(R.layout.fragment_recipe_ima
             val selectedImageIndex = arguments?.getInt(RecipeDetailsConstants.INDEX_KEY) ?: 0
             binding.imageViewPager.setCurrentItem(selectedImageIndex, false)
         })
+
+        // Если картинка успешно сохранилась, оповещаем тостом
+        viewModel.isImageSaved.observe(viewLifecycleOwner, { event ->
+            if (event.getContentIfNotHandled() == true) {
+                makeToast(R.string.downloaded)
+                openGalleryChooser()
+            }
+        })
+
         setHasOptionsMenu(true)
+    }
+
+    private fun openGalleryChooser() {
+        val chooser = Intent.createChooser(
+            Intent.makeMainSelectorActivity(Intent.ACTION_MAIN, Intent.CATEGORY_APP_GALLERY),
+            getString(R.string.chooser_gallery)
+        )
+
+        try {
+            startActivity(chooser)
+        } catch (e: ActivityNotFoundException) {
+            makeToast(R.string.error_chooser_gallery)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -59,27 +78,8 @@ class RecipeImagesFullScreenFragment : BaseFragment(R.layout.fragment_recipe_ima
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.saveButton) {
-            binding.apply {
-                // Получаем viewholder отображаемого view
-                val currentViewHolder =
-                    (imageViewPager[0] as RecyclerView).findViewHolderForAdapterPosition(
-                        imageCountTabLayout.selectedTabPosition
-                    )
-                // Получаем imageview с отображаемой картинкой
-                val imageView = currentViewHolder?.itemView?.findViewById<ImageView>(R.id.imageView)
-                // Сохраняем в галерею
-                imageView?.saveImageToPictures()
-            }
+            viewModel.saveImageToPictures(binding.imageViewPager.currentItem)
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    // Сохраняем картинку в галарею (папка Pictures)
-    private fun ImageView.saveImageToPictures() {
-        val bitmap = drawable.toBitmap()
-        lifecycleScope.launch {
-            ImageSaver.saveToPictures(bitmap, requireActivity().applicationContext.contentResolver)
-            makeToast(R.string.downloaded)
-        }
     }
 }

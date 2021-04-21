@@ -18,4 +18,6 @@
     <string name="download">Download</string>
     <string name="downloaded">Image is downloaded to your gallery</string>
     <string name="in_development">Feature is in development</string>
+    <string name="chooser_gallery">Choose gallery app</string>
+    <string name="error_chooser_gallery">No gallery app is installed</string>
 </resources>
