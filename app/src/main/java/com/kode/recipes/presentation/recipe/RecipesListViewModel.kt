@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RecipesListViewModel
 @Inject constructor(
-    private val getRecipes: GetRecipes,
+    private val requestRecipes: GetRecipes,
     private val searchRecipes: SearchRecipes,
     private val sortRecipes: SortRecipes
 ) : BaseViewModel() {
@@ -46,14 +46,14 @@ class RecipesListViewModel
     var searchBy: SearchBy = SearchBy.NAME
 
     init {
-        getRecipes()
+        requestRecipes()
     }
 
     // Получение списка рецептов
     // с сервиса
-    private fun getRecipes() {
+    private fun requestRecipes() {
         _isLoading.value = true
-        getRecipes(
+        requestRecipes(
             params = None(),
             job = job,
             onResult = { it.fold(::handleFailure, ::handleRecipesLoaded) }

@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RecipeDetailsViewModel
 @Inject constructor(
-    private val getRecipeDetails: GetRecipeDetails,
+    private val requestRecipesDetails: GetRecipeDetails,
     savedStateHandle: SavedStateHandle
 ) : BaseViewModel() {
 
@@ -29,9 +29,9 @@ class RecipeDetailsViewModel
         _selectedRecipeUuid.value = Event(it.uuid)
     }
 
-    private fun getRecipeDetails(uuid: String) {
+    private fun requestRecipeDetails(uuid: String) {
         _isLoading.value = true
-        getRecipeDetails.invoke(
+        requestRecipesDetails.invoke(
             params = uuid,
             job = job,
             onResult = { result -> result.fold(::handleFailure, ::handleRecipeDetailsLoaded) }
@@ -45,7 +45,8 @@ class RecipeDetailsViewModel
 
     init {
         // При старте экрана деталей, загружаем детали рецепта по переданному из списка uuid
-        savedStateHandle.get<String>(RecipeDetailsConstants.UUID_KEY)?.let { getRecipeDetails(it) }
+        savedStateHandle.get<String>(RecipeDetailsConstants.UUID_KEY)
+            ?.let { requestRecipeDetails(it) }
     }
 
 }
