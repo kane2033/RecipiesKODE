@@ -19,24 +19,26 @@ class RecipeDetailsViewModel
     savedStateHandle: SavedStateHandle
 ) : BaseViewModel() {
 
-    private val recipeId: String? = savedStateHandle.get<String>(RecipeDetailsConstants.UUID_KEY)
+    // Айди текущего отображаемого рецепта
+    private val currentRecipeId = savedStateHandle.get<String>(RecipeDetailsConstants.UUID_KEY)
 
-    private val _selectedRecipeUuid = MutableLiveData<Event<String>>()
-    val selectedRecipeUuid: LiveData<Event<String>> = _selectedRecipeUuid
+    // Айди выбранного рецепта через "Рекомендованные"
+    private val _nextSelectedRecipeId = MutableLiveData<Event<String>>()
+    val selectedRecipeUuid: LiveData<Event<String>> = _nextSelectedRecipeId
 
     private val _recipeDetails = MutableLiveData<Recipe>()
     val recipeDetails: LiveData<Recipe> = _recipeDetails
 
     val onRecommendedItemClicked = ItemClickedInterface<RecipeBrief> {
-        _selectedRecipeUuid.value = Event(it.uuid)
+        _nextSelectedRecipeId.value = Event(it.uuid)
     }
 
-    fun requestRecipeDetails() {
-        if (recipeId == null) return
+    fun requestRecipeDetails(uuid: String? = currentRecipeId) {
+        if (uuid == null) return
 
         _isLoading.value = true
         requestRecipesDetails.invoke(
-            params = recipeId,
+            params = uuid,
             job = job,
             onResult = { result -> result.fold(::handleFailure, ::handleRecipeDetailsLoaded) }
         )
