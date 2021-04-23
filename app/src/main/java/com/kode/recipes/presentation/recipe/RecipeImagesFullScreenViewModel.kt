@@ -27,8 +27,14 @@ class RecipeImagesFullScreenViewModel
     private val _isImageSaved = MutableLiveData<Event<Boolean>>()
     val isImageSaved: LiveData<Event<Boolean>> = _isImageSaved
 
+    // Храним выбранный индекс картинки,
+    // чтобы повторить сохранение этой же картинки
+    private var currentImageIndex = 0
+
     // Сохранение картинки по url в папку Pictures
-    fun saveImageToPictures(imageIndex: Int) {
+    fun saveImageToPictures(imageIndex: Int = currentImageIndex) {
+        _isLoading.value = true
+        currentImageIndex = imageIndex
         imagesUrls.value?.let { list ->
             saveImageToPictures(
                 params = list[imageIndex],
@@ -39,6 +45,7 @@ class RecipeImagesFullScreenViewModel
     }
 
     private fun handleImageSaved(isSaved: Boolean) {
+        _isLoading.value = false
         _isImageSaved.value = Event(isSaved)
     }
 }

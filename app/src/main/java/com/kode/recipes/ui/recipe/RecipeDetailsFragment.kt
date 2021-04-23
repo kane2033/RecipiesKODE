@@ -49,6 +49,9 @@ class RecipeDetailsFragment : BaseFragment(R.layout.fragment_recipe_details) {
         })
 
         setHasOptionsMenu(true)
+
+        // При возникновении ошибки повторно загружаем детали рецепта
+        handleFailure(baseRetryClickedCallback = viewModel::requestRecipeDetails)
     }
 
     private val imageClickedInterface = ItemClickedInterface<String> {

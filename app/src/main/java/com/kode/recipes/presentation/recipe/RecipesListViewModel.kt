@@ -51,7 +51,7 @@ class RecipesListViewModel
 
     // Получение списка рецептов
     // с сервиса
-    private fun requestRecipes() {
+    fun requestRecipes() {
         _isLoading.value = true
         requestRecipes(
             params = None(),

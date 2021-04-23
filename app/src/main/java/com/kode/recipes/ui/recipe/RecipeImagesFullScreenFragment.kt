@@ -12,6 +12,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kode.recipes.R
 import com.kode.recipes.databinding.FragmentRecipeImagesFullscreenBinding
+import com.kode.recipes.domain.base.entity.FailureInfo
+import com.kode.recipes.domain.recipe.exception.ImageDownloadFailure
 import com.kode.recipes.presentation.recipe.RecipeDetailsConstants
 import com.kode.recipes.presentation.recipe.RecipeImagesFullScreenViewModel
 import com.kode.recipes.presentation.recipe.SwipeImageAdapter
@@ -56,6 +58,22 @@ class RecipeImagesFullScreenFragment : BaseFragment(R.layout.fragment_recipe_ima
         })
 
         setHasOptionsMenu(true)
+
+        val imageDownloadFailureInfo = FailureInfo(
+            viewModel::saveImageToPictures,
+            getString(R.string.error_image_download_title),
+            getString(R.string.error_image_download),
+            getString(R.string.error_image_download_retry)
+        )
+
+        handleFailure(
+            baseRetryClickedCallback = viewModel::saveImageToPictures,
+            handleFailure = {
+                when (it) {
+                    is ImageDownloadFailure -> imageDownloadFailureInfo
+                    else -> null
+                }
+            })
     }
 
     private fun openGalleryChooser() {

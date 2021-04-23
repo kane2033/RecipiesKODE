@@ -11,6 +11,8 @@ import androidx.navigation.NavDirections
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.kode.recipes.R
 import com.kode.recipes.databinding.FragmentRecipesListBinding
+import com.kode.recipes.domain.base.entity.FailureInfo
+import com.kode.recipes.domain.base.exception.Failure
 import com.kode.recipes.presentation.recipe.RecipesAdapter
 import com.kode.recipes.presentation.recipe.RecipesListViewModel
 import com.kode.recipes.ui.base.BaseFragment
@@ -45,6 +47,26 @@ class RecipesListFragment : BaseFragment(R.layout.fragment_recipes_list) {
         })
 
         setHasOptionsMenu(true)
+
+        val missingRecipes = FailureInfo(
+            viewModel::requestRecipes,
+            getString(R.string.error_missing_recipes_list_title),
+            getString(R.string.error_missing_recipes_list)
+        )
+
+        // Обрабатываем ошибки
+        handleFailure(
+            // Базовый коллбек для необработанных случаев
+            baseRetryClickedCallback = viewModel::requestRecipes,
+            handleFailure = {
+                when (it) {
+                    // Обрабатываем ошибку при отсутствии контента
+                    Failure.MissingContentFailure -> missingRecipes
+                    // Для остальных будет стандартное сообщение и стандартный коллбек
+                    else -> null
+                }
+            }
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

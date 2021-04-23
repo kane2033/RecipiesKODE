@@ -39,4 +39,23 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">8dp</item>
     </style>
+
+    <!--layout_failure styles-->
+
+    <style name="failure_title" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="failure_text" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:gravity">center</item>
+        <item name="android:lineSpacingExtra">5sp</item>
+    </style>
+
+    <style name="retry_button" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:lineSpacingExtra">8sp</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="strokeColor">@color/blue</item>
+    </style>
 </resources>

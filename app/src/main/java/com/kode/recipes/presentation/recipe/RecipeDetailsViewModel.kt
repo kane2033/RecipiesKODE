@@ -19,6 +19,8 @@ class RecipeDetailsViewModel
     savedStateHandle: SavedStateHandle
 ) : BaseViewModel() {
 
+    private val recipeId: String? = savedStateHandle.get<String>(RecipeDetailsConstants.UUID_KEY)
+
     private val _selectedRecipeUuid = MutableLiveData<Event<String>>()
     val selectedRecipeUuid: LiveData<Event<String>> = _selectedRecipeUuid
 
@@ -29,10 +31,12 @@ class RecipeDetailsViewModel
         _selectedRecipeUuid.value = Event(it.uuid)
     }
 
-    private fun requestRecipeDetails(uuid: String) {
+    fun requestRecipeDetails() {
+        if (recipeId == null) return
+
         _isLoading.value = true
         requestRecipesDetails.invoke(
-            params = uuid,
+            params = recipeId,
             job = job,
             onResult = { result -> result.fold(::handleFailure, ::handleRecipeDetailsLoaded) }
         )
@@ -45,8 +49,7 @@ class RecipeDetailsViewModel
 
     init {
         // При старте экрана деталей, загружаем детали рецепта по переданному из списка uuid
-        savedStateHandle.get<String>(RecipeDetailsConstants.UUID_KEY)
-            ?.let { requestRecipeDetails(it) }
+        requestRecipeDetails()
     }
 
 }
