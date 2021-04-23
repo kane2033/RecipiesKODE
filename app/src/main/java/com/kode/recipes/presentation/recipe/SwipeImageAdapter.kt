@@ -5,7 +5,7 @@ import com.kode.recipes.R
 import com.kode.recipes.presentation.base.BaseListAdapter
 import com.kode.recipes.presentation.base.ItemClickedInterface
 
-class SwipeImageAdapter(imageClickedInterface: ItemClickedInterface<String>) :
+class SwipeImageAdapter(imageClickedInterface: ItemClickedInterface<String> = ItemClickedInterface { }) :
     BaseListAdapter<String>(Companion) {
 
     init {

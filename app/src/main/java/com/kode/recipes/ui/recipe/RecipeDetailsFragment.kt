@@ -10,6 +10,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kode.recipes.R
 import com.kode.recipes.databinding.FragmentRecipeDetailsBinding
+import com.kode.recipes.presentation.base.ItemClickedInterface
+import com.kode.recipes.presentation.recipe.RecipeDetailsConstants
 import com.kode.recipes.presentation.recipe.RecipeDetailsViewModel
 import com.kode.recipes.presentation.recipe.RecommendedRecipesAdapter
 import com.kode.recipes.presentation.recipe.SwipeImageAdapter
@@ -34,21 +36,7 @@ class RecipeDetailsFragment : BaseFragment(R.layout.fragment_recipe_details) {
             recommendedRecyclerView.adapter = RecommendedRecipesAdapter()
 
             // При клике на картинку, она открывает в новом фрагменте на полном экране
-            imageViewPager.adapter = SwipeImageAdapter(imageClickedInterface = {
-                // Переносим в полноэкранный фрагмент ссылки на картинки и индекс выбранной картинки
-                val urls =
-                    this@RecipeDetailsFragment.viewModel.recipeDetails.value?.imagesUrls?.toTypedArray()
-                val bundle = bundleOf(
-                    "urls" to urls,
-                    "index" to imageCountTabLayout.selectedTabPosition
-                )
-                findNavController().navigate(
-                    R.id.action_recipeDetailsFragment_to_recipeImagesFullScreenFragment,
-                    bundle,
-                    null,
-                    FragmentNavigatorExtras(imageViewPager to "viewPager") // Не работает с viewpager :(
-                )
-            })
+            imageViewPager.adapter = SwipeImageAdapter(imageClickedInterface)
             TabLayoutMediator(imageCountTabLayout, imageViewPager) { _, _ -> }.attach()
         }
 
@@ -61,10 +49,40 @@ class RecipeDetailsFragment : BaseFragment(R.layout.fragment_recipe_details) {
         })
 
         setHasOptionsMenu(true)
+
+        // При возникновении ошибки повторно загружаем детали рецепта
+        handleFailure(baseRetryClickedCallback = viewModel::requestRecipeDetails)
+    }
+
+    private val imageClickedInterface = ItemClickedInterface<String> {
+        // Открываем полноэкранный фрагмент с передачей данных
+        findNavController().navigate(
+            R.id.action_recipeDetailsFragment_to_recipeImagesFullScreenFragment,
+            // Переносим в полноэкранный фрагмент ссылки на картинки и индекс выбранной картинки
+            bundleOf(
+                RecipeDetailsConstants.URLS_KEY to viewModel.recipeDetails.value?.imagesUrls?.toTypedArray(),
+                RecipeDetailsConstants.INDEX_KEY to binding.imageCountTabLayout.selectedTabPosition
+            ),
+            null,
+            // Не работает с viewpager :(
+            FragmentNavigatorExtras(binding.imageViewPager to RecipeDetailsConstants.SHARED_VIEW_PAGER_KEY)
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.toolbar_details, menu)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.shareButton -> {
+                makeToast(R.string.in_development)
+            }
+            R.id.favoriteButton -> {
+                makeToast(R.string.in_development)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

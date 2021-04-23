@@ -15,23 +15,29 @@ import javax.inject.Inject
 @HiltViewModel
 class RecipeDetailsViewModel
 @Inject constructor(
-    private val getRecipeDetails: GetRecipeDetails,
+    private val requestRecipesDetails: GetRecipeDetails,
     savedStateHandle: SavedStateHandle
 ) : BaseViewModel() {
 
-    private val _selectedRecipeUuid = MutableLiveData<Event<String>>()
-    val selectedRecipeUuid: LiveData<Event<String>> = _selectedRecipeUuid
+    // Айди текущего отображаемого рецепта
+    private val currentRecipeId = savedStateHandle.get<String>(RecipeDetailsConstants.UUID_KEY)
+
+    // Айди выбранного рецепта через "Рекомендованные"
+    private val _nextSelectedRecipeId = MutableLiveData<Event<String>>()
+    val selectedRecipeUuid: LiveData<Event<String>> = _nextSelectedRecipeId
 
     private val _recipeDetails = MutableLiveData<Recipe>()
     val recipeDetails: LiveData<Recipe> = _recipeDetails
 
     val onRecommendedItemClicked = ItemClickedInterface<RecipeBrief> {
-        _selectedRecipeUuid.value = Event(it.uuid)
+        _nextSelectedRecipeId.value = Event(it.uuid)
     }
 
-    private fun getRecipeDetails(uuid: String) {
+    fun requestRecipeDetails(uuid: String? = currentRecipeId) {
+        if (uuid == null) return
+
         _isLoading.value = true
-        getRecipeDetails.invoke(
+        requestRecipesDetails.invoke(
             params = uuid,
             job = job,
             onResult = { result -> result.fold(::handleFailure, ::handleRecipeDetailsLoaded) }
@@ -44,8 +50,8 @@ class RecipeDetailsViewModel
     }
 
     init {
-        // При старт
-        savedStateHandle.get<String>("uuid")?.let { getRecipeDetails(it) }
+        // При старте экрана деталей, загружаем детали рецепта по переданному из списка uuid
+        requestRecipeDetails()
     }
 
 }

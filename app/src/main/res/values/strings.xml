@@ -17,4 +17,24 @@
     <string name="recipes_list_title">Recipes</string>
     <string name="download">Download</string>
     <string name="downloaded">Image is downloaded to your gallery</string>
+    <string name="in_development">Feature is in development</string>
+    <string name="chooser_gallery">Choose gallery app</string>
+    <string name="error_chooser_gallery">No gallery app is installed</string>
+
+    <string name="error_network_connection_title">No internet</string>
+    <string name="error_network_connection">Try refreshing the screen when
+        communication is restored.</string>
+
+    <string name="error_base_title">Something went wrong</string>
+    <string name="error_base">The problem is on our side, we are already looking into it.
+        Please try refreshing the screen later.</string>
+
+    <string name="error_missing_recipes_list_title">Content is missing</string>
+    <string name="error_missing_recipes_list">The requested content is missing. Please try again later.</string>
+
+    <string name="error_image_download_title">Could not save image</string>
+    <string name="error_image_download">Could not save current image - failed to download.</string>
+    <string name="error_image_download_retry">Retry</string>
+
+    <string name="refresh">Refresh</string>
 </resources>
