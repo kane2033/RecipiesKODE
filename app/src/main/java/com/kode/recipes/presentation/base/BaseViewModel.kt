@@ -1,6 +1,5 @@
 package com.kode.recipes.presentation.base
 
-import androidx.annotation.IdRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,14 +12,6 @@ import kotlinx.coroutines.Job
  * используемые в каждой viewmodel.
  * */
 abstract class BaseViewModel : ViewModel() {
-
-    // По данному полю определеяется пункт назначения навигации
-    private val _newDestination = MutableLiveData<Event<Int>>()
-    val newDestination: LiveData<Event<Int>> = _newDestination
-
-    protected fun setNewDestination(@IdRes destinationId: Int) {
-        _newDestination.value = Event(destinationId)
-    }
 
     // Работа, в скоупе которой будет выполняться
     // задача
