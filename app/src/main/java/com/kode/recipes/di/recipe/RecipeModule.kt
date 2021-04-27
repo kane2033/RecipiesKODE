@@ -1,7 +1,7 @@
 package com.kode.recipes.di.recipe
 
-import com.kode.recipes.data.recipe.network.RecipeApi
-import com.kode.recipes.data.recipe.network.RecipeApiImpl
+import com.kode.recipes.data.recipe.network.RecipeApiDataSource
+import com.kode.recipes.data.recipe.network.RecipeApiDataSourceImpl
 import com.kode.recipes.data.recipe.repository.ImageRepositoryImpl
 import com.kode.recipes.data.recipe.repository.RecipeRepositoryImpl
 import com.kode.recipes.domain.recipe.repository.ImageRepository
@@ -9,22 +9,23 @@ import com.kode.recipes.domain.recipe.repository.RecipeRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.android.scopes.ViewModelScoped
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@InstallIn(SingletonComponent::class)
 object RecipeModule {
 
     @Provides
-    @ViewModelScoped
-    fun provideRecipeApi(api: RecipeApiImpl): RecipeApi = api
+    @Singleton
+    fun provideRecipeApiDataSource(dataSource: RecipeApiDataSourceImpl): RecipeApiDataSource =
+        dataSource
 
     @Provides
-    @ViewModelScoped
+    @Singleton
     fun provideRecipeRepository(repository: RecipeRepositoryImpl): RecipeRepository = repository
 
     @Provides
-    @ViewModelScoped
+    @Singleton
     fun provideImageRepository(repository: ImageRepositoryImpl): ImageRepository = repository
 }

@@ -1,7 +1,7 @@
-package com.kode.recipes.data.recipe.converter
+package com.kode.recipes.data.recipe.network.converter
 
-import com.kode.recipes.data.recipe.model.RecipeBriefDto
-import com.kode.recipes.data.recipe.model.RecipeDto
+import com.kode.recipes.data.recipe.network.model.RecipeBriefDto
+import com.kode.recipes.data.recipe.network.model.RecipeDto
 import com.kode.recipes.domain.recipe.entity.Recipe
 import com.kode.recipes.domain.recipe.entity.RecipeBrief
 import java.util.*
