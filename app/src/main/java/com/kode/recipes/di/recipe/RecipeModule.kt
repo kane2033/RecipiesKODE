@@ -9,22 +9,22 @@ import com.kode.recipes.domain.recipe.repository.RecipeRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.android.scopes.ViewModelScoped
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@InstallIn(SingletonComponent::class)
 object RecipeModule {
 
     @Provides
-    @ViewModelScoped
+    @Singleton
     fun provideRecipeApi(api: RecipeApiImpl): RecipeApi = api
 
     @Provides
-    @ViewModelScoped
+    @Singleton
     fun provideRecipeRepository(repository: RecipeRepositoryImpl): RecipeRepository = repository
 
     @Provides
-    @ViewModelScoped
+    @Singleton
     fun provideImageRepository(repository: ImageRepositoryImpl): ImageRepository = repository
 }

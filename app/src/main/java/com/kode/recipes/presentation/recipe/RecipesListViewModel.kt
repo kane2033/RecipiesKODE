@@ -4,7 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.kode.recipes.domain.base.functional.Event
 import com.kode.recipes.domain.base.interactor.None
-import com.kode.recipes.domain.recipe.entity.*
+import com.kode.recipes.domain.recipe.entity.Recipe
+import com.kode.recipes.domain.recipe.entity.SearchBy
+import com.kode.recipes.domain.recipe.entity.SearchQuery
+import com.kode.recipes.domain.recipe.entity.SortBy
 import com.kode.recipes.domain.recipe.interactor.GetRecipes
 import com.kode.recipes.domain.recipe.interactor.SearchRecipes
 import com.kode.recipes.domain.recipe.interactor.SortRecipes
@@ -70,7 +73,7 @@ class RecipesListViewModel
     fun searchRecipes(constraint: String) {
         _isLoading.value = true
         searchRecipes(
-            params = SearchQuery(constraint, searchBy, unfilteredRecipes),
+            params = SearchQuery(constraint, searchBy),
             job = job,
             onResult = { it.fold(::handleFailure, ::handleRecipesFiltered) }
         )
@@ -89,7 +92,7 @@ class RecipesListViewModel
         _isLoading.value = true
         sortedBy = sortBy
         sortRecipes(
-            params = SortQuery(sortBy, recipes.value),
+            params = sortBy,
             job = job,
             onResult = { it.fold(::handleFailure, ::handleRecipesSorted) }
         )
