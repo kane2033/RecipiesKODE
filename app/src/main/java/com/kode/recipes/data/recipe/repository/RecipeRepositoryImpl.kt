@@ -1,8 +1,6 @@
 package com.kode.recipes.data.recipe.repository
 
-import com.kode.recipes.data.base.network.SafeApiCall
-import com.kode.recipes.data.recipe.converter.toRecipe
-import com.kode.recipes.data.recipe.network.RecipeApi
+import com.kode.recipes.data.recipe.network.RecipeApiDataSource
 import com.kode.recipes.domain.base.exception.Failure
 import com.kode.recipes.domain.base.functional.Either
 import com.kode.recipes.domain.base.functional.onSuccess
@@ -12,8 +10,7 @@ import javax.inject.Inject
 
 class RecipeRepositoryImpl
 @Inject constructor(
-    private val recipeApi: RecipeApi,
-    private val safeApiCall: SafeApiCall
+    private val recipeApi: RecipeApiDataSource,
 ) : RecipeRepository {
 
     // Синглтон репозиторий хранит список рецептов,
@@ -21,9 +18,7 @@ class RecipeRepositoryImpl
     private var recipes: List<Recipe> = emptyList()
 
     override suspend fun getRecipes(): Either<Failure, List<Recipe>> {
-        val result = safeApiCall.safeApiResult({
-            recipeApi.getRecipesAsync()
-        }, { it.recipes.map { recipeDto -> recipeDto.toRecipe() } })
+        val result = recipeApi.getRecipes()
         result.onSuccess { recipes = it }
         return result
     }
@@ -34,7 +29,5 @@ class RecipeRepositoryImpl
         return Either.Right(recipes)
     }
 
-    override suspend fun getRecipeDetails(uuid: String) = safeApiCall.safeApiResult({
-        recipeApi.getRecipeDetailsAsync(uuid)
-    }, { it.recipe.toRecipe() })
+    override suspend fun getRecipeDetails(uuid: String) = recipeApi.getRecipeDetails(uuid)
 }

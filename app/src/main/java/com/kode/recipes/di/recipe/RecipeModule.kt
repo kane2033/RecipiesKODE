@@ -1,7 +1,7 @@
 package com.kode.recipes.di.recipe
 
-import com.kode.recipes.data.recipe.network.RecipeApi
-import com.kode.recipes.data.recipe.network.RecipeApiImpl
+import com.kode.recipes.data.recipe.network.RecipeApiDataSource
+import com.kode.recipes.data.recipe.network.RecipeApiDataSourceImpl
 import com.kode.recipes.data.recipe.repository.ImageRepositoryImpl
 import com.kode.recipes.data.recipe.repository.RecipeRepositoryImpl
 import com.kode.recipes.domain.recipe.repository.ImageRepository
@@ -18,7 +18,8 @@ object RecipeModule {
 
     @Provides
     @Singleton
-    fun provideRecipeApi(api: RecipeApiImpl): RecipeApi = api
+    fun provideRecipeApiDataSource(dataSource: RecipeApiDataSourceImpl): RecipeApiDataSource =
+        dataSource
 
     @Provides
     @Singleton
